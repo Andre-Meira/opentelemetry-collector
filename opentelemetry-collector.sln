@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1DC0921D-FB58-4726-A204-F08D2CDBEF5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B61B98A5-9C1F-4953-AD1F-5C07FAE98937}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.AppHost", "src\AspireApp.AppHost\AspireApp.AppHost.csproj", "{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireApp.ServiceDefaults", "src\AspireApp.ServiceDefaults\AspireApp.ServiceDefaults.csproj", "{F66C7A5E-91DE-472D-856C-72BBE83B8ECF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireApp.ApiService", "src\AspireApp.ApiService\AspireApp.ApiService.csproj", "{54A266AD-0816-4363-9B75-C1F9695D0DC5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireApp.Web", "src\AspireApp.Web\AspireApp.Web.csproj", "{E5281DA9-FF91-4EE6-8948-59F38541708A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{A0ECC541-CD8E-4FE0-985A-C53F4E099483}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\docker-compose.yaml = build\docker\docker-compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpentelemetryCollector", "OpentelemetryCollector", "{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\OpentelemetryCollector\otel-collector-config.yaml = build\docker\OpentelemetryCollector\otel-collector-config.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66C7A5E-91DE-472D-856C-72BBE83B8ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66C7A5E-91DE-472D-856C-72BBE83B8ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66C7A5E-91DE-472D-856C-72BBE83B8ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66C7A5E-91DE-472D-856C-72BBE83B8ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A266AD-0816-4363-9B75-C1F9695D0DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54A266AD-0816-4363-9B75-C1F9695D0DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54A266AD-0816-4363-9B75-C1F9695D0DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54A266AD-0816-4363-9B75-C1F9695D0DC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5281DA9-FF91-4EE6-8948-59F38541708A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5281DA9-FF91-4EE6-8948-59F38541708A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5281DA9-FF91-4EE6-8948-59F38541708A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5281DA9-FF91-4EE6-8948-59F38541708A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD} = {1DC0921D-FB58-4726-A204-F08D2CDBEF5D}
+		{F66C7A5E-91DE-472D-856C-72BBE83B8ECF} = {1DC0921D-FB58-4726-A204-F08D2CDBEF5D}
+		{54A266AD-0816-4363-9B75-C1F9695D0DC5} = {1DC0921D-FB58-4726-A204-F08D2CDBEF5D}
+		{E5281DA9-FF91-4EE6-8948-59F38541708A} = {1DC0921D-FB58-4726-A204-F08D2CDBEF5D}
+		{A0ECC541-CD8E-4FE0-985A-C53F4E099483} = {B61B98A5-9C1F-4953-AD1F-5C07FAE98937}
+		{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39} = {A0ECC541-CD8E-4FE0-985A-C53F4E099483}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ECB7F4A4-F457-4E52-821A-DA50392BAB72}
+	EndGlobalSection
+EndGlobal
