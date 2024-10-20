@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1DC0921D-FB5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{B61B98A5-9C1F-4953-AD1F-5C07FAE98937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.AppHost", "src\AspireApp.AppHost\AspireApp.AppHost.csproj", "{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireApp.AppHost", "src\AspireApp.AppHost\AspireApp.AppHost.csproj", "{50D932CD-DB58-4EF5-94F2-EBB9F0765EBD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireApp.ServiceDefaults", "src\AspireApp.ServiceDefaults\AspireApp.ServiceDefaults.csproj", "{F66C7A5E-91DE-472D-856C-72BBE83B8ECF}"
 EndProject
@@ -23,6 +23,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpentelemetryCollector", "OpentelemetryCollector", "{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39}"
 	ProjectSection(SolutionItems) = preProject
 		build\docker\OpentelemetryCollector\otel-collector-config.yaml = build\docker\OpentelemetryCollector\otel-collector-config.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elasticsearch", "elasticsearch", "{70F30F26-2EDA-4C4E-BD8C-6E8617A195D3}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\.env = build\docker\elasticsearch\.env
+		build\docker\elasticsearch\apm-server.yml = build\docker\elasticsearch\apm-server.yml
+		build\docker\elasticsearch\apm-service.dockerfile = build\docker\elasticsearch\apm-service.dockerfile
+		build\docker\elasticsearch\elasticsearch.yml = build\docker\elasticsearch\elasticsearch.yml
 	EndProjectSection
 EndProject
 Global
@@ -58,6 +66,7 @@ Global
 		{E5281DA9-FF91-4EE6-8948-59F38541708A} = {1DC0921D-FB58-4726-A204-F08D2CDBEF5D}
 		{A0ECC541-CD8E-4FE0-985A-C53F4E099483} = {B61B98A5-9C1F-4953-AD1F-5C07FAE98937}
 		{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39} = {A0ECC541-CD8E-4FE0-985A-C53F4E099483}
+		{70F30F26-2EDA-4C4E-BD8C-6E8617A195D3} = {A0ECC541-CD8E-4FE0-985A-C53F4E099483}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECB7F4A4-F457-4E52-821A-DA50392BAB72}

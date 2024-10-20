@@ -23,7 +23,6 @@
         "DOTNET_ENVIRONMENT": "Development",
         "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "http://localhost:19207",
         "DOTNET_RESOURCE_SERVICE_ENDPOINT_URL": "http://localhost:20044",
-        "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317",
         "ASPIRE_ALLOW_UNSECURED_TRANSPORT": "true"
       }
     }

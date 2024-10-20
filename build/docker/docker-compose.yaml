@@ -1,14 +1,61 @@
 
 services:
   otel-collector:
-    depends_on: 
-      - aspire
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib
     volumes:
       - ./OpentelemetryCollector/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     ports:
-      - 13133:13133 # health_check extension
-      - 5017:5017 # OTLP gRPC receiver
-      - 5018:5018 # OTLP http receiver
-      - 55679:55679 # zpages extension
+      - "1888:1888" 
+      - "8888:8888" 
+      - "8889:8889" 
+      - "13133:13133"
+      - "4317:4317"
+      - "55679:55679"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    container_name: elasticsearch
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: "single-node"
+      xpack.security.enabled: "false"
+      xpack.security.enrollment.enabled: "false"
+      ES_JAVA_OPTS: "-Xms4g -Xmx4g"
+    volumes:
+      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+      - ./esdata:/usr/share/elasticsearch/data
+      - ./eslog:/usr/share/elasticsearch/logs
+
+  elastic-apm:
+    build:
+      context: .
+      dockerfile: ./elasticsearch/apm-service.dockerfile
+    container_name: elastic-apm
+    command: --strict.perms=false
+    depends_on:
+      - elasticsearch    
+    ports:
+    - 8200:8200
+    volumes:
+      - ./elasticsearch/apm-server.yml:/usr/share/apm-server/apm-server.yml:ro
+    healthcheck:
+      interval: 10s
+      retries: 12
+      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/
+
+  kibana:
+    depends_on:
+      - elasticsearch
+    image: docker.elastic.co/kibana/kibana:8.15.3
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200      
+      
+volumes:
+  esdata:
+    driver: local
