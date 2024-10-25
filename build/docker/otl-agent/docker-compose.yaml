@@ -1,0 +1,18 @@
+
+services:
+  otel-collector:
+    container_name: otel-collector
+    image: otel/opentelemetry-collector-contrib
+    volumes:
+      - ./OpentelemetryCollector/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - "1888:1888" 
+      - "8888:8888" 
+      - "8889:8889" 
+      - "13133:13133"
+      - "4317:4317"
+      - "55679:55679"
+      
+volumes:
+  esdata:
+    driver: local

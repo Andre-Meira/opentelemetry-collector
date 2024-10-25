@@ -1,0 +1,40 @@
+cluster.name: es-docker-cluster
+network.host: 0.0.0.0
+http.port: 9200
+http.host: 0.0.0.0
+
+#network.publish_host: elasticsearch
+#http.publish_port: 9200
+
+## X-Pack settings
+## see https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-settings.html
+#
+xpack.license.self_generated.type: basic
+xpack.security.enabled: true
+# The API key service is required by Fleet, but disabled by default when the
+# Elasticsearch API is not served over TLS.
+xpack.security.authc.api_key.enabled: true
+xpack.security.http.ssl.enabled: false
+# xpack.security.http.ssl.key: ${CONFIG_DIR}/elasticsearch.key
+# xpack.security.http.ssl.certificate: ${CONFIG_DIR}/elasticsearch.crt
+# xpack.security.http.ssl.certificate_authorities: [ ${CONFIG_DIR}/elasticsearch.pem ]
+# xpack.security.http.ssl.verification_mode: certificate
+
+# xpack.security.transport.ssl.keystore.path: ${CONFIG_DIR}/elastic_strong.pfx
+# xpack.security.transport.ssl.truststore.path: ${CONFIG_DIR}/elastic_strong.pfx
+
+xpack.security.transport.ssl.enabled: false
+# xpack.security.transport.ssl.key: ${CONFIG_DIR}/elasticsearch.key
+# xpack.security.transport.ssl.certificate: ${CONFIG_DIR}/elasticsearch.crt
+# xpack.security.transport.ssl.certificate_authorities: [ ${CONFIG_DIR}/elasticsearch.pem ]
+# xpack.security.transport.ssl.verification_mode: certificate
+
+# xpack.security.http.ssl.keystore.path: ${CONFIG_DIR}/elastic_strong.pfx
+# xpack.security.http.ssl.truststore.path: ${CONFIG_DIR}/elastic_strong.pfx
+
+# xpack.security.transport.ssl.keystore.password: 12345678
+# xpack.security.transport.ssl.truststore.password: 12345678
+# xpack.security.http.ssl.keystore.password: 12345678
+# xpack.security.http.ssl.truststore.password: 12345678
+
+ingest.geoip.downloader.enabled: false

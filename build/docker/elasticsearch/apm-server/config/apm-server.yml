@@ -1,0 +1,388 @@
+################################ APM Server ################################
+
+apm-server:
+  # Defines the host and port the server is listening on. Use "unix:/path/to.sock" to listen on a unix domain socket.
+  host: "0.0.0.0:8200"
+  #auth:
+    # Agent authorization using Elasticsearch API Keys.
+    #api_key:
+      #enabled: false
+      #
+      # Restrict how many unique API keys are allowed per minute. Should be set to at least the amount of different
+      # API keys configured in your monitored services. Every unique API key triggers one request to Elasticsearch.
+      #limit: 100
+
+    # Define a shared secret token for authorizing agents using the "Bearer" authorization method.
+    #secret_token:
+
+    # Allow anonymous access only for specified agents and/or services. This is primarily intended to allow
+    # limited access for untrusted agents, such as Real User Monitoring.
+    #anonymous:
+      # By default anonymous auth is automatically enabled when either auth.api_key or
+      # auth.secret_token is enabled, and RUM is enabled. Otherwise, anonymous auth is
+      # disabled by default.
+      #
+      # When anonymous auth is enabled, only agents matching allow_agent and services
+      # matching allow_service are allowed. See below for details on default values for
+      # allow_agent.
+      #enabled:
+
+      # Allow anonymous access only for specified agents.
+      #allow_agent: [rum-js, js-base]
+
+      # Allow anonymous access only for specified service names. By default, all service names are allowed.
+      #allow_service: []
+
+      # Rate-limit anonymous access by IP and number of events.
+      #rate_limit:
+        # Rate limiting is defined per unique client IP address, for a limited number of IP addresses.
+        # Sites with many concurrent clients should consider increasing this limit. Defaults to 1000.
+        #ip_limit: 1000
+
+        # Defines the maximum amount of events allowed per IP per second. Defaults to 300. The overall
+        # maximum event throughput for anonymous access is (event_limit * ip_limit).
+        #event_limit: 300
+  ssl:
+    enabled: false
+    # certificate: ${CONFIG_DIR}/apm-server.crt
+    # key: ${CONFIG_DIR}/apm-server.key    
+
+rum:
+  enabled: true
+  allow_origins: ["*"]
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  protocol: "http"
+
+  username: "elastic"
+  password: "changeme"
+
+  # Optional HTTP Path.
+  #path: "/elasticsearch"
+
+  # Custom HTTP headers to add to each request.
+  #headers:
+  #  X-My-Header: Contents of the header
+
+  # Proxy server url.
+  #proxy_url: http://proxy:3128
+
+  # The number of times a particular Elasticsearch index operation is attempted. If
+  # the indexing operation doesn't succeed after this many retries, the events are
+  # dropped. The default is 3.
+  #max_retries: 3
+
+  # The number of seconds to wait before trying to reconnect to Elasticsearch
+  # after a network error. After waiting backoff.init seconds, apm-server
+  # tries to reconnect. If the attempt fails, the backoff timer is increased
+  # exponentially up to backoff.max. After a successful connection, the backoff
+  # timer is reset. The default is 1s.
+  #backoff.init: 1s
+
+  # The maximum number of seconds to wait before attempting to connect to
+  # Elasticsearch after a network error. The default is 60s.
+  #backoff.max: 60s
+
+  # Configure http request timeout before failing an request to Elasticsearch.
+  #timeout: 90
+
+  # The bulk request size threshold, in bytes, before flushing to Elasticsearch.
+  # The value must have a suffix, e.g. `"2MB"`. The default is `1MB`.
+  #flush_bytes: 1MB
+
+  # The maximum duration to accumulate events for a bulk request before being flushed to Elasticsearch.
+  # The value must have a duration suffix, e.g. `"5s"`. The default is `1s`.
+  #flush_interval: 1s
+
+  # Enable custom SSL settings. Set to false to ignore custom SSL settings for secure communication.
+  ssl.enabled: true
+
+  # Optional SSL configuration options. SSL is off by default, change the `protocol` option if you want to enable `https`.
+  #
+  # Control the verification of Elasticsearch certificates. Valid values are:
+  # * full, which verifies that the provided certificate is signed by a trusted
+  # authority (CA) and also verifies that the server's hostname (or IP address)
+  # matches the names identified within the certificate.
+  # * strict, which verifies that the provided certificate is signed by a trusted
+  # authority (CA) and also verifies that the server's hostname (or IP address)
+  # matches the names identified within the certificate. If the Subject Alternative
+  # Name is empty, it returns an error.
+  # * certificate, which verifies that the provided certificate is signed by a
+  # trusted authority (CA), but does not perform any hostname verification.
+  #  * none, which performs no verification of the server's certificate. This
+  # mode disables many of the security benefits of SSL/TLS and should only be used
+  # after very careful consideration. It is primarily intended as a temporary
+  # diagnostic mechanism when attempting to resolve TLS errors; its use in
+  # production environments is strongly discouraged.
+  ssl.verification_mode: none
+
+  # List of supported/valid TLS versions. By default all TLS versions 1.0 up to
+  # 1.2 are enabled.
+  #ssl.supported_protocols: [TLSv1.0, TLSv1.1, TLSv1.2]
+
+  # List of root certificates for HTTPS server verifications.
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication.
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+  # Optional passphrase for decrypting the Certificate Key.
+  # It is recommended to use the provided keystore instead of entering the passphrase in plain text.
+  #ssl.key_passphrase: ''
+
+  # Configure cipher suites to be used for SSL connections.
+  #ssl.cipher_suites: []
+
+  # Configure curve types for ECDHE based cipher suites.
+  #ssl.curve_types: []
+
+  # Configure what types of renegotiation are supported. Valid options are
+  # never, once, and freely. Default is never.
+  #ssl.renegotiation: never
+
+
+#---------------------------- Logstash output -----------------------------
+#output.logstash:
+  # Boolean flag to enable or disable the output module.
+  #enabled: false
+
+  # The Logstash hosts.
+  #hosts: ["localhost:5044"]
+
+  # Number of workers per Logstash host.
+  #worker: 1
+
+  # Set gzip compression level.
+  #compression_level: 3
+
+  # Configure escaping html symbols in strings.
+  #escape_html: true
+
+  # Optional maximum time to live for a connection to Logstash, after which the
+  # connection will be re-established.  A value of `0s` (the default) will
+  # disable this feature.
+  #
+  # Not yet supported for async connections (i.e. with the "pipelining" option set).
+  #ttl: 30s
+
+  # Optional load balance the events between the Logstash hosts. Default is false.
+  #loadbalance: false
+
+  # Number of batches to be sent asynchronously to Logstash while processing
+  # new batches.
+  #pipelining: 2
+
+  # If enabled only a subset of events in a batch of events is transferred per
+  # group.  The number of events to be sent increases up to `bulk_max_size`
+  # if no error is encountered.
+  #slow_start: false
+
+  # The number of seconds to wait before trying to reconnect to Logstash
+  # after a network error. After waiting backoff.init seconds, apm-server
+  # tries to reconnect. If the attempt fails, the backoff timer is increased
+  # exponentially up to backoff.max. After a successful connection, the backoff
+  # timer is reset. The default is 1s.
+  #backoff.init: 1s
+
+  # The maximum number of seconds to wait before attempting to connect to
+  # Logstash after a network error. The default is 60s.
+  #backoff.max: 60s
+
+  # Optional index name. The default index name is set to apm
+  # in all lowercase.
+  #index: 'apm'
+
+  # SOCKS5 proxy server URL
+  #proxy_url: socks5://user:password@socks5-server:2233
+
+  # Resolve names locally when using a proxy server. Defaults to false.
+  #proxy_use_local_resolver: false
+
+  # Enable SSL support. SSL is automatically enabled if any SSL setting is set.
+  #ssl.enabled: false
+
+  # Optional SSL configuration options. SSL is off by default.
+  #
+  # Control the verification of Logstash certificates. Valid values are:
+  # * full, which verifies that the provided certificate is signed by a trusted
+  # authority (CA) and also verifies that the server's hostname (or IP address)
+  # matches the names identified within the certificate.
+  # * strict, which verifies that the provided certificate is signed by a trusted
+  # authority (CA) and also verifies that the server's hostname (or IP address)
+  # matches the names identified within the certificate. If the Subject Alternative
+  # Name is empty, it returns an error.
+  # * certificate, which verifies that the provided certificate is signed by a
+  # trusted authority (CA), but does not perform any hostname verification.
+  #  * none, which performs no verification of the server's certificate. This
+  # mode disables many of the security benefits of SSL/TLS and should only be used
+  # after very careful consideration. It is primarily intended as a temporary
+  # diagnostic mechanism when attempting to resolve TLS errors; its use in
+  # production environments is strongly discouraged.
+  #ssl.verification_mode: full
+
+  # List of supported/valid TLS versions. By default all TLS versions 1.0 up to
+  # 1.2 are enabled.
+  #ssl.supported_protocols: [TLSv1.0, TLSv1.1, TLSv1.2]
+
+  # List of root certificates for HTTPS server verifications.
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication.
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+  # Optional passphrase for decrypting the Certificate Key.
+  # It is recommended to use the provided keystore instead of entering the passphrase in plain text.
+  #ssl.key_passphrase: ''
+
+  # Configure cipher suites to be used for SSL connections.
+  #ssl.cipher_suites: []
+
+  # Configure curve types for ECDHE based cipher suites.
+  #ssl.curve_types: []
+
+  # Configure what types of renegotiation are supported. Valid options are
+  # never, once, and freely. Default is never.
+  #ssl.renegotiation: never
+
+#============================= Instrumentation =============================
+
+# Instrumentation support for the server's HTTP endpoints and event publisher.
+#instrumentation:
+
+  # Set to true to enable instrumentation of the APM Server itself.
+  #enabled: false
+
+  # Environment in which the APM Server is running on (eg: staging, production, etc.)
+  #environment: ""
+
+  # Hosts to report instrumentation results to.
+  # For reporting to itself, leave this field commented
+  #hosts:
+  #  - http://remote-apm-server:8200
+
+  # API Key for the remote APM Server(s).
+  # If api_key is set then secret_token will be ignored.
+  #api_key:
+
+  # Secret token for the remote APM Server(s).
+  #secret_token:
+
+
+#=============================== HTTP Endpoint ===============================
+
+# apm-server can expose internal metrics through a HTTP endpoint. For security
+# reasons the endpoint is disabled by default. This feature is currently experimental.
+# Stats can be access through http://localhost:5066/stats. For pretty JSON output
+# append ?pretty to the URL.
+
+# Defines if the HTTP endpoint is enabled.
+#http.enabled: false
+
+# The HTTP endpoint will bind to this hostname or IP address. It is recommended to use only localhost.
+#http.host: localhost
+
+# Port on which the HTTP endpoint will bind. Default is 5066.
+#http.port: 5066
+
+
+  # Protocol - either `http` (default) or `https`.
+  #protocol: "https"
+
+  # Authentication credentials - either API key or username/password.
+  #api_key: "id:api_key"
+  #username: "elastic"
+  #password: "changeme"
+
+  # Array of hosts to connect to.
+  # Scheme and port can be left out and will be set to the default (`http` and `9200`).
+  # In case you specify and additional path, the scheme is required: `http://localhost:9200/path`.
+  # IPv6 addresses should always be defined as: `https://[2001:db8::1]:9200`.
+  #hosts: ["localhost:9200"]
+
+  # Set gzip compression level.
+  #compression_level: 0
+
+  # Custom HTTP headers to add to each request.
+  #headers:
+  #  X-My-Header: Contents of the header
+
+  # Proxy server url.
+  #proxy_url: http://proxy:3128
+
+  # The number of times a particular Elasticsearch index operation is attempted. If
+  # the indexing operation doesn't succeed after this many retries, the events are
+  # dropped. The default is 3.
+  #max_retries: 3
+
+  # The number of seconds to wait before trying to reconnect to Elasticsearch
+  # after a network error. After waiting backoff.init seconds, apm-server
+  # tries to reconnect. If the attempt fails, the backoff timer is increased
+  # exponentially up to backoff.max. After a successful connection, the backoff
+  # timer is reset. The default is 1s.
+  #backoff.init: 1s
+
+  # The maximum number of seconds to wait before attempting to connect to
+  # Elasticsearch after a network error. The default is 60s.
+  #backoff.max: 60s
+
+  # Configure HTTP request timeout before failing an request to Elasticsearch.
+  #timeout: 90
+
+  # Enable custom SSL settings. Set to false to ignore custom SSL settings for secure communication.
+  #ssl.enabled: true
+
+  # Optional SSL configuration options. SSL is off by default, change the `protocol` option if you want to enable `https`.
+  #
+  # Control the verification of Elasticsearch certificates. Valid values are:
+  # * full, which verifies that the provided certificate is signed by a trusted
+  # authority (CA) and also verifies that the server's hostname (or IP address)
+  # matches the names identified within the certificate.
+  # * strict, which verifies that the provided certificate is signed by a trusted
+  # authority (CA) and also verifies that the server's hostname (or IP address)
+  # matches the names identified within the certificate. If the Subject Alternative
+  # Name is empty, it returns an error.
+  # * certificate, which verifies that the provided certificate is signed by a
+  # trusted authority (CA), but does not perform any hostname verification.
+  #  * none, which performs no verification of the server's certificate. This
+  # mode disables many of the security benefits of SSL/TLS and should only be used
+  # after very careful consideration. It is primarily intended as a temporary
+  # diagnostic mechanism when attempting to resolve TLS errors; its use in
+  # production environments is strongly discouraged.
+  #ssl.verification_mode: full
+
+  # List of supported/valid TLS versions. By default all TLS versions 1.0 up to
+  # 1.2 are enabled.
+  #ssl.supported_protocols: [TLSv1.0, TLSv1.1, TLSv1.2]
+
+  # List of root certificates for HTTPS server verifications.
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication.
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+  # Optional passphrase for decrypting the Certificate Key.
+  # It is recommended to use the provided keystore instead of entering the passphrase in plain text.
+  #ssl.key_passphrase: ''
+
+  # Configure cipher suites to be used for SSL connections.
+  #ssl.cipher_suites: []
+
+  # Configure curve types for ECDHE based cipher suites.
+  #ssl.curve_types: []
+
+  # Configure what types of renegotiation are supported. Valid options are
+  # never, once, and freely. Default is never.
+  #ssl.renegotiation: never
+
+  #metrics.period: 10s
+  #state.period: 1m

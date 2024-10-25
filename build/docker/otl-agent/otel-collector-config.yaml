@@ -12,9 +12,10 @@ extensions:
 
 exporters:
   otlp/elastic:
-    endpoint: http://elastic-apm:8200
+    endpoint: http://apm-sever:8200
     tls:
-      insecure: true 
+      insecure: true
+      insecure_skip_verify: true
 
   debug:
     verbosity: detailed

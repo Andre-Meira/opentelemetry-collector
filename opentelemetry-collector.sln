@@ -16,21 +16,65 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireApp.Web", "src\AspireApp.Web\AspireApp.Web.csproj", "{E5281DA9-FF91-4EE6-8948-59F38541708A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{A0ECC541-CD8E-4FE0-985A-C53F4E099483}"
-	ProjectSection(SolutionItems) = preProject
-		build\docker\docker-compose.yaml = build\docker\docker-compose.yaml
-	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpentelemetryCollector", "OpentelemetryCollector", "{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel-agent", "otel-agent", "{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39}"
 	ProjectSection(SolutionItems) = preProject
-		build\docker\OpentelemetryCollector\otel-collector-config.yaml = build\docker\OpentelemetryCollector\otel-collector-config.yaml
+		build\docker\otl-agent\docker-compose.yaml = build\docker\otl-agent\docker-compose.yaml
+		build\docker\otl-agent\otel-collector-config.yaml = build\docker\otl-agent\otel-collector-config.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elasticsearch", "elasticsearch", "{70F30F26-2EDA-4C4E-BD8C-6E8617A195D3}"
 	ProjectSection(SolutionItems) = preProject
 		build\docker\elasticsearch\.env = build\docker\elasticsearch\.env
-		build\docker\elasticsearch\apm-server.yml = build\docker\elasticsearch\apm-server.yml
-		build\docker\elasticsearch\apm-service.dockerfile = build\docker\elasticsearch\apm-service.dockerfile
-		build\docker\elasticsearch\elasticsearch.yml = build\docker\elasticsearch\elasticsearch.yml
+		build\docker\elasticsearch\docker-compose.yml = build\docker\elasticsearch\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apm-server", "apm-server", "{76069EAC-0DF7-4767-BE42-411B12A9CAFA}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\apm-server\Dockerfile = build\docker\elasticsearch\apm-server\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "elasticsearch", "elasticsearch", "{0200883F-4F1B-416F-8D2C-BB642CC93E23}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\elasticsearch\.dockerignore = build\docker\elasticsearch\elasticsearch\.dockerignore
+		build\docker\elasticsearch\elasticsearch\Dockerfile = build\docker\elasticsearch\elasticsearch\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kibana", "kibana", "{9D466717-24BE-48B3-B045-7F35E66985D6}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\kibana\.dockerignore = build\docker\elasticsearch\kibana\.dockerignore
+		build\docker\elasticsearch\kibana\Dockerfile = build\docker\elasticsearch\kibana\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logstash", "logstash", "{4B0C6157-DD29-4474-83F3-0E545DA6B35C}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\logstash\.dockerignore = build\docker\elasticsearch\logstash\.dockerignore
+		build\docker\elasticsearch\logstash\Dockerfile = build\docker\elasticsearch\logstash\Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{627AE33A-98B2-4122-AFF9-4B5B022BD734}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\logstash\config\logstash.yml = build\docker\elasticsearch\logstash\config\logstash.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{893EE80D-2A32-4845-A5A6-0BF998278708}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\logstash\pipeline\logstash.conf = build\docker\elasticsearch\logstash\pipeline\logstash.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{34B74D4E-1915-4FBA-81C6-690E7E063271}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\kibana\config\kibana.yml = build\docker\elasticsearch\kibana\config\kibana.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{DBA6CA4A-7122-4A01-963C-1A44799B6540}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\elasticsearch\config\elasticsearch.yml = build\docker\elasticsearch\elasticsearch\config\elasticsearch.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{C9956B90-47E8-44AC-95F4-42B34D9699EE}"
+	ProjectSection(SolutionItems) = preProject
+		build\docker\elasticsearch\apm-server\config\apm-server.yml = build\docker\elasticsearch\apm-server\config\apm-server.yml
 	EndProjectSection
 EndProject
 Global
@@ -67,6 +111,15 @@ Global
 		{A0ECC541-CD8E-4FE0-985A-C53F4E099483} = {B61B98A5-9C1F-4953-AD1F-5C07FAE98937}
 		{6EEDA68E-C03C-43EC-81D9-AE1C6E9E8E39} = {A0ECC541-CD8E-4FE0-985A-C53F4E099483}
 		{70F30F26-2EDA-4C4E-BD8C-6E8617A195D3} = {A0ECC541-CD8E-4FE0-985A-C53F4E099483}
+		{76069EAC-0DF7-4767-BE42-411B12A9CAFA} = {70F30F26-2EDA-4C4E-BD8C-6E8617A195D3}
+		{0200883F-4F1B-416F-8D2C-BB642CC93E23} = {70F30F26-2EDA-4C4E-BD8C-6E8617A195D3}
+		{9D466717-24BE-48B3-B045-7F35E66985D6} = {70F30F26-2EDA-4C4E-BD8C-6E8617A195D3}
+		{4B0C6157-DD29-4474-83F3-0E545DA6B35C} = {70F30F26-2EDA-4C4E-BD8C-6E8617A195D3}
+		{627AE33A-98B2-4122-AFF9-4B5B022BD734} = {4B0C6157-DD29-4474-83F3-0E545DA6B35C}
+		{893EE80D-2A32-4845-A5A6-0BF998278708} = {4B0C6157-DD29-4474-83F3-0E545DA6B35C}
+		{34B74D4E-1915-4FBA-81C6-690E7E063271} = {9D466717-24BE-48B3-B045-7F35E66985D6}
+		{DBA6CA4A-7122-4A01-963C-1A44799B6540} = {0200883F-4F1B-416F-8D2C-BB642CC93E23}
+		{C9956B90-47E8-44AC-95F4-42B34D9699EE} = {76069EAC-0DF7-4767-BE42-411B12A9CAFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ECB7F4A4-F457-4E52-821A-DA50392BAB72}
