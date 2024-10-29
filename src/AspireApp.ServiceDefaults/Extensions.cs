@@ -1,3 +1,4 @@
+using Elastic.CommonSchema.Serilog;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,8 @@ using OpenTelemetry;
 using OpenTelemetry.Exporter;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using Serilog;
+using Serilog.Sinks.RabbitMQ;
 namespace Microsoft.Extensions.Hosting;
 
 // Adds common .NET Aspire services: service discovery, resilience, health checks, and OpenTelemetry.
@@ -29,6 +32,30 @@ public static class Extensions
         });
 
         builder.Services.AddSingleton<IClickMetrics, ClickMetrics>();
+
+
+        Log.Logger = new LoggerConfiguration()
+            .Filter.ByIncludingOnly(config =>
+            {
+                var value  = config.MessageTemplate.Text == "Button";
+
+                return value;
+            })
+            .WriteTo.RabbitMQ((configure, sink) =>
+            {
+                configure.Exchange = "log";
+                configure.ExchangeType = "fanout";
+                configure.Hostnames = ["localhost"];
+                configure.Port = 5672;
+                configure.Username = "guest";
+                configure.Password = "guest";
+                configure.VHost = "/";
+                configure.DeliveryMode = RabbitMQDeliveryMode.Durable;
+                sink.TextFormatter = new EcsTextFormatter();
+            })
+            .CreateLogger();
+
+        builder.Logging.AddSerilog(Log.Logger, dispose: true);
 
         return builder;
     }

@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Elastic.CommonSchema.Serilog" Version="8.12.2" />
 
     <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.3.0" />
     <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="8.0.0" />
@@ -17,6 +18,9 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.8.1" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.8.1" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.8.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.RabbitMQ" Version="7.0.2" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,9 @@
 using AspireApp.ServiceDefaults.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Common;
+using System.Reflection.Metadata;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +58,16 @@ public static partial class TesteLoggerExtensions
         EventName = "",
         Level = LogLevel.Information,
         Message = "Button")]
-    public static partial void Button(this Microsoft.Extensions.Logging.ILogger logger, [LogProperties] Teste click);
+    public static partial void Button(this ILogger logger,
+        [TagProvider(typeof(TesteLoggerExtensions), nameof(ConvertForJson))] Teste click);
+
+    public static void ConvertForJson(ITagCollector collector, Teste click)
+    {
+        collector.Add("json", JsonSerializer.Serialize(click, options: new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        }));
+    }
 }
 
 
